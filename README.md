@@ -70,7 +70,7 @@ Your explanation should describe an execution in which the race occurs without s
 
 Key concepts: lock, algorithm design and analysis
 Answer:
-
+  risk of deadlock or thread goes to sleep forever== lock is broken
 let's assume we have two threads A and B and A had the lock.
 1st senario: without setpark():
 
@@ -86,6 +86,8 @@ Senario B: setpark() usage before m->guard=0;
 B acquired the guard, B sees the flag ==1 , B added to the Queue queue_add(q,B) , setpark(B), B is about to sleep,
 B release the guard m->guard=0, kernel knows B is about to sleep,
 A acquired guard, dequeues B, calls unpark B, b doesn't miss the wakeup call because it was setparked , b calls park but returns immediately and doesnot sleep and b acquired the lock now.
+
+================================================================================================================================================
 
 
 
