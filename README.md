@@ -21,15 +21,18 @@ the output is as follows:
 
 ./a.out
 Thread 139751953311488 ENTER critical section
+
 Thread 139751944918784 ENTER critical section
+
 Thread 139751953311488 EXIT critical section
+
 Thread 139751944918784 EXIT critical section
 
 
 
 ===============================================================================================================================
 
-Lock Analysis II (1pt)
+QLock Analysis II (1pt)
 Consider “Figure 28.6: Using LL/SC To Build A Lock” What happens if you replace Line 12 by 
 		lock->flag = lock->flag - 1;
 
@@ -46,5 +49,19 @@ Hint: Consider all possible executions, including cases in which application cod
 
 
 Key concepts: lock, algorithm design and analysis
+
+
+
+Answer: this modified lock is incorrect due to multiple things, 
+any thread can change the flag even if it doesn't own it, second : the flag might go from 1 to 0 and -1 and if that happened the lock is broken.
+
+
+
+==================================================================================================
+
+
+
+
+
 
 
