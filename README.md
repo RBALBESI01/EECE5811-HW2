@@ -120,8 +120,21 @@ this code is building two mutual‑exclusion lock algorithms in C—Ticket Lock 
 Ticket Lock : to ensure fairness, ticket lock uses FIFO for each arriving thread by assigning an unique ticket number while the lock is represented by two atomic integers: now_serving and next_ticket.
 
 to eliminate starvation and minimize cashe contention each thread will get a ticket number fromm fetch_add function, and it will spin waiting till it get served when its number matched the now_serving.
+//////////////////////////////////////////////////////
+
+int my_ticket = atomic_fetch_add(&l->next_ticket, 1);
+
+
+while (atomic_load(&l->now_serving) != my_ticket) { }
+
+///////////////////////////////////////////////////////
 
 To release the lock, the now serving will be incremented to the next thread.
+//////////////////////////////////////////////////////////
+
+atomic_fetch_add(&l->now_serving, 1);
+
+//////////////////////////////////////////////////////////////////////
 
 
 CAS: in compare and swap, threads are trying to change the lock from 0->1 
@@ -135,8 +148,22 @@ to unlock: the atomic_store is used to change the state to 0
 
 atomic_store(&l->state, 0);
 
+///////////////////////////////////////////////////////////////////////////////////
+
+====================================================================================================
+* Instructions for compiling and running your program.:
+compile:
+  gcc -std=c11 -O2 -pthread hw2_4.c -o hw2_4
+
+run:
+./hw2_4.o
+====================================================================================================
 
 
+A description of your benchmark design:
+the benchmark section is creating threads using pthrread_create(), each one is trying to acquire the lock, waiting time is measured using  clock_gettime(CLOCK_MONOTONIC),  run some crtitcal section: incrementing shared variable to 100, release lock and repeat.
+
+threads are varied  from 1,2,4,8 and 16 threads.
 
 
 
