@@ -53,11 +53,37 @@ Key concepts: lock, algorithm design and analysis
 
 
 Answer: this modified lock is incorrect due to multiple things, 
-any thread can change the flag even if it doesn't own it, second : the flag might go from 1 to 0 and -1 and if that happened the lock is broken.
+any thread can change the flag even if it doesn't own it, second : the flag might go from 1 to 0 and -1 and if that happened the lock is permenantly broken.
 
 
 
 ==================================================================================================
+
+
+Lock Analysis III (1pt)
+Consider “Figure 28.9: Lock With Queues, Test-and-set, Yield, And Wakeup” 
+Explain why adding setpark() right before “m->guard = 0;” solves the “Wakeup/Waiting Race” issue that we discussed in lecture.
+
+
+Your explanation should describe an execution in which the race occurs without setpark(), and then explain what changes when setpark() is added.
+
+
+Key concepts: lock, algorithm design and analysis
+Answer:
+
+let's assume we have two threads A and B and A had the lock.
+1st senario: without setpark():
+
+B acquired the guard, B sees the flag ==1 , B added to the Queue queue_add(q,B) 
+then B releases guard , m->guard=0, B intendes to sleep but not yet called park()
+context switch to A 
+A acquired guard, A de queued B, A calls unpark(b) but what? B didn't sleep that wakeup is lost now
+then B resumes and calls park() then B goes to sleep FOREVERRRRRR, 
+
+Senario B: setpark() usage before m->guard=0;
+
+
+
 
 
 
