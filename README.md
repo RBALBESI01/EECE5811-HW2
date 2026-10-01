@@ -88,7 +88,7 @@ B release the guard m->guard=0, kernel knows B is about to sleep,
 A acquired guard, dequeues B, calls unpark B, b doesn't miss the wakeup call because it was setparked , b calls park but returns immediately and doesnot sleep and b acquired the lock now.
 
 ================================================================================================================================================
-
+Q2-4
 
 Comparing Lock algorithms (2 pt)
 Implement Ticket lock (Figure 28.7) and compare-and-swap spin lock (Ch. 28.9) 
