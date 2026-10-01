@@ -54,7 +54,7 @@ Key concepts: lock, algorithm design and analysis
 
 Answer: this modified lock is incorrect due to multiple things, 
 any thread can change the flag even if it doesn't own it, second : the flag might go from 1 to 0 and -1 and if that happened the lock is permenantly broken.
-
+if multiple threads were able to access critical section the mutual exclusion is violated.
 
 
 ==================================================================================================
