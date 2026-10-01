@@ -83,6 +83,9 @@ then B resumes and calls park() then B goes to sleep FOREVERRRRRR,
 Senario B: setpark() usage before m->guard=0;
 
 
+B acquired the guard, B sees the flag ==1 , B added to the Queue queue_add(q,B) , setpark(B), B is about to sleep,
+B release the guard m->guard=0, kernel knows B is about to sleep,
+A acquired guard, dequeues B, calls unpark B, b doesn't miss the wakeup call because it was setparked , b calls park but returns immediately and doesnot sleep and b acquired the lock now.
 
 
 
