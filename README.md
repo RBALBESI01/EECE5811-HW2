@@ -90,6 +90,31 @@ A acquired guard, dequeues B, calls unpark B, b doesn't miss the wakeup call bec
 ================================================================================================================================================
 
 
+Comparing Lock algorithms (2 pt)
+Implement Ticket lock (Figure 28.7) and compare-and-swap spin lock (Ch. 28.9) 
+
+
+Do not use a built-in mutex to implement either lock. Instead, implement the lock algorithms using the atomic operations provided by your language.
+You may only use Go, C, or C++.
+
+
+Design an experiment to compare the lock acquisition waiting time of the two lock implementations under different levels of contention.
+
+
+For one lock acquisition, define waiting time as: the time between a thread/goroutine starting its attempt to acquire the lock and successfully acquiring it.
+
+Your experiment should vary the amount of contention. Use the same workload and experimental setup when comparing the two locks. Run enough lock acquisitions and trials to obtain meaningful results.
+
+In your submission, include: 
+A description of your implementation.
+Instructions for compiling and running your program.
+A description of your benchmark design.
+Your experimental results.
+A brief analysis of the results, including what you observed as contention increased.
+
+
+Answer:
+
 
 
 
