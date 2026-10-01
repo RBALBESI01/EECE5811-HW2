@@ -114,6 +114,27 @@ A brief analysis of the results, including what you observed as contention incre
 
 
 Answer:
+description of implementaion:
+this code is building two mutual‑exclusion lock algorithms in C—Ticket Lock and Compare‑and‑Swap (CAS) Spin Lock—using only C11 atomic operations and POSIX thread without using built in mutexes.
+
+Ticket Lock : to ensure fairness, ticket lock uses FIFO for each arriving thread by assigning an unique ticket number while the lock is represented by two atomic integers: now_serving and next_ticket.
+
+to eliminate starvation and minimize cashe contention each thread will get a ticket number fromm fetch_add function, and it will spin waiting till it get served when its number matched the now_serving.
+
+To release the lock, the now serving will be incremented to the next thread.
+
+
+CAS: in compare and swap, threads are trying to change the lock from 0->1 
+int expected = 0;
+while (!atomic_compare_exchange_strong(&l->state, &expected, 1)) {
+    expected = 0;
+}
+
+and if the lock is alreasy held they will spin waiting and casuing contention.
+to unlock: the atomic_store is used to change the state to 0
+
+atomic_store(&l->state, 0);
+
 
 
 
